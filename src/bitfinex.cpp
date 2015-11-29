@@ -47,7 +47,7 @@ double getAvail(Parameters& params, std::string currency) {
     std::string tmpType = json_string_value(json_object_get(json_array_get(root, i), "type"));
     std::string tmpCurrency = json_string_value(json_object_get(json_array_get(root, i), "currency"));
     if (tmpType.compare("trading") == 0 && tmpCurrency.compare(currency.c_str()) == 0) {
-      availability = atof(json_string_value(json_object_get(json_array_get(root, i), "amount")));
+      availability = atof(json_string_value(json_object_get(json_array_get(root, i), "available")));
     }
   }
 //  json_array_clear(root);
