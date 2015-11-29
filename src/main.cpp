@@ -196,11 +196,18 @@ int main(int argc, char** argv) {
   csvFile << "TRADE_ID,EXCHANGE_LONG,EXHANGE_SHORT,ENTRY_TIME,EXIT_TIME,DURATION,TOTAL_EXPOSURE,BALANCE_BEFORE,BALANCE_AFTER,RETURN\n";
   csvFile.flush();
 
+  std::string spreadFileName = "spread_data.csv";
+  std::ofstream spreadFile;
+  spreadFile.open(spreadFileName.c_str(), std::ofstream::out | std::ofstream::app);
+  spreadFile.imbue(mylocale);
+  params.spreadFile = &spreadFile;
+
   std::string logFileName = "blackbird_log_" + currDateTime + ".log";
   std::ofstream logFile;
   logFile.open(logFileName.c_str(), std::ofstream::trunc);
   logFile.imbue(mylocale);
   logFile.precision(2);
+
   logFile << std::fixed;
   params.logFile = &logFile;
   logFile << "--------------------------------------------" << std::endl;

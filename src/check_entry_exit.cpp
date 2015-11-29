@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <iomanip>
 #include "check_entry_exit.h"
+#include "time_fun.h"
 
 std::string percToStr(double perc) {
 
@@ -38,7 +39,7 @@ bool checkEntry(Bitcoin* btcLong, Bitcoin* btcShort, Result& res, Parameters& pa
     if (params.verbose) {
       *params.logFile << "   " << btcLong->getExchName() << "/" << btcShort->getExchName() << ":\t" << percToStr(res.spreadIn);
       *params.logFile << " [target " << percToStr(params.spreadEntry) << ", min " << percToStr(res.minSpread[longId][shortId]) << ", max " << percToStr(res.maxSpread[longId][shortId]) << "]";
-
+      *params.spreadFile << printDateTime() << ", " << btcLong->getExchName() << "/" << btcShort->getExchName() << ", " << res.spreadIn * 100 << std::endl;
       if (res.trailing[longId][shortId] != -1.0) {
         *params.logFile << "   trailing " << percToStr(res.trailing[longId][shortId]) << "  " << res.trailingWait[longId][shortId] << "/2";
       }
@@ -118,6 +119,7 @@ bool checkExit(Bitcoin* btcLong, Bitcoin* btcShort, Result& res, Parameters& par
   }
   if (params.verbose) {
     *params.logFile << "   " << btcLong->getExchName() << "/" << btcShort->getExchName() << ":\t" << percToStr(res.spreadOut);
+    *params.spreadFile << printDateTime() << ", " << btcLong->getExchName() << "/" << btcShort->getExchName() << ", " << res.spreadOut * 100 << std::endl;
     *params.logFile << " [target " << percToStr(res.exitTarget) << ", min " << percToStr(res.minSpread[longId][shortId]) << ", max " << percToStr(res.maxSpread[longId][shortId]) << "]";
     if (res.trailing[longId][shortId] != 1.0) {
       *params.logFile << "   trailing " << percToStr(res.trailing[longId][shortId]) << "  " << res.trailingWait[longId][shortId] << "/2";

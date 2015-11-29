@@ -68,6 +68,7 @@ struct Parameters {
   std::string sevennintysixSecret;
   double sevennintysixFees;
   bool sevennintysixCanShort;
+  std::ofstream* spreadFile;
 
   bool sendEmail;
   std::string senderAddress;
