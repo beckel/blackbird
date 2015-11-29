@@ -16,10 +16,10 @@ namespace Kraken {
   // send order to the exchange and return order ID
   int sendOrder(Parameters& params, std::string direction, double quantity, double price);
 
-  // check the status of the order [ TODO ]
+  // check the status of the order
   bool isOrderComplete(Parameters& params, int orderId);
 
-  // get the bitcoin exposition [ TODO ]
+  // get the bitcoin exposition
   double getActivePos(Parameters& params);
 
   // get the limit price according to the requested volume
