@@ -8,6 +8,7 @@
 #include <curl/curl.h>
 #include <string.h>
 #include <mysql/mysql.h>
+#include <sys/stat.h>
 
 #include "base64.h"
 #include "bitcoin.h"
@@ -197,10 +198,17 @@ int main(int argc, char** argv) {
   csvFile.flush();
 
   std::string spreadFileName = "spread_data.csv";
+  struct stat buf;
+  bool exists = (stat(spreadFileName.c_str(), &buf) == 0);
   std::ofstream spreadFile;
   spreadFile.open(spreadFileName.c_str(), std::ofstream::out | std::ofstream::app);
   spreadFile.imbue(mylocale);
   params.spreadFile = &spreadFile;
+  if (!exists) {
+	  spreadFile << "Time,Exchanges,Spread" << std::endl;
+	  spreadFile.flush();
+  }
+  std::cout << "Storing spread values in " << spreadFileName << std::endl;
 
   std::string logFileName = "blackbird_log_" + currDateTime + ".log";
   std::ofstream logFile;

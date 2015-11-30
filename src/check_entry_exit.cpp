@@ -39,7 +39,7 @@ bool checkEntry(Bitcoin* btcLong, Bitcoin* btcShort, Result& res, Parameters& pa
     if (params.verbose) {
       *params.logFile << "   " << btcLong->getExchName() << "/" << btcShort->getExchName() << ":\t" << percToStr(res.spreadIn);
       *params.logFile << " [target " << percToStr(params.spreadEntry) << ", min " << percToStr(res.minSpread[longId][shortId]) << ", max " << percToStr(res.maxSpread[longId][shortId]) << "]";
-      *params.spreadFile << printDateTime() << ", " << btcLong->getExchName() << "/" << btcShort->getExchName() << ", " << res.spreadIn * 100 << std::endl;
+      *params.spreadFile << printDateTime() << "," << btcLong->getExchName() << "/" << btcShort->getExchName() << "," << res.spreadIn * 100 << std::endl;
       if (res.trailing[longId][shortId] != -1.0) {
         *params.logFile << "   trailing " << percToStr(res.trailing[longId][shortId]) << "  " << res.trailingWait[longId][shortId] << "/2";
       }
